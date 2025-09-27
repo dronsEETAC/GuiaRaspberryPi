@@ -110,11 +110,8 @@ Para controlar el dron usaremos la librería dronLink, que se está desarrolland
 https://github.com/dronsEETAC/dronLink
 
 El vídeo siguiente muestra los pasos que hay que dar para instalar la librería en la RPi y ejecutar un programa que controle el simulador SITL de Ardupilot.   
-https://youtu.be/Rv5vDt5qYPg
    
-[![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DRv5vDt5qYPg)](https://www.youtube.com/watch?v=Rv5vDt5qYPg)
- fff
-[![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DnRv5vDt5qYPg)](https://www.youtube.com/watch?v=Rv5vDt5qYPg)
+[![](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DRv5vDt5qYPg)](https://www.youtube.com/watch?v=Rv5vDt5qYPg)   
  
 Los pasos son los siguientes:   
 1. Conectar el portátil al hotspot de la RPi y también a la misma red local a la que está conectada la RPi. Para realizar estar dos conexiones necesitaremos un adaptador WiFi externo.
