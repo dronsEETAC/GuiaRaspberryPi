@@ -418,8 +418,206 @@ if __name__ == "__main__":
 ```
 Este código también requiere de la instalación de la librería websockets. El código se conecta al websocket y entra en un bucle en el que recibe frames y los muestra en una ventana que aparece en la pantalla del portátil. La conexión debe hacerse al puerto 8765 del servidor. Para ello hay que averiguar la IP que le ha sigo asignada a la RPi en la red local a la que se ha conectado, que debe ser la misma a la que se ha conectado el portátil. Para averiguar la IP basta ejecutar el comando ifconfig en un terminal de la RPi.   
  
-Si se ponen en marcha estos códigos podrá observarse que efectivamente la fluidez del stream de vídeo es mucho mejor que en el caso de la comunicación vía MQTT. No obstante, hay herramientas específicas para implementar video streaming con resultados aún mejores, pero de mayor complejidad, por lo que quedan fuera del alcance de este tutorial.   
+Si se ponen en marcha estos códigos podrá observarse que efectivamente la fluidez del stream de vídeo es mucho mejor que en el caso de la comunicación vía MQTT.    
+## x. Transmisión de video stream por WebRTC    
+Como hemos visto, la transmisión de video stream por Websockets representa una importante mejora respecto a la transmisión via MQTT. Sin embargo, Websockets no es el mecanismo ideal para ese propósito porque funciona sobre TCP/IP, por tanto, el proceso de transmisión tiene retardos debidos a los mecanismos de control de flujo que garantizan que no hay pérdida de paquetes. La trasmisión de video no requiere de esos mecanismos ya que la perdida de algun paquete (algún frame de vídeo) no afecta significativamente la experiencia de usuario. Para la trasmisión de video stream es mejor el protocolo UDP/IP que no garantiza la recuperación de paquetes perdidos a cambio de una mayor fluidez. El protocolo WebRTC utiliza UDP/IP por lo que es una mejor opción para la transmisión de video stream.    
 
+En el caso de WebRTC tenemos de nuevo un servidor que captura los frames de video y los sirve a los clientes que se conecten. Un posible código para el servidor es este:
+```
+import asyncio
+import cv2
+from aiortc import RTCPeerConnection, RTCSessionDescription, VideoStreamTrack
+from aiortc.contrib.signaling import TcpSocketSignaling
+from av import VideoFrame
+import fractions
+from datetime import datetime
+
+class CustomVideoStreamTrack(VideoStreamTrack):
+    def __init__(self, camera_id):
+        super().__init__()
+        self.cap = cv2.VideoCapture(camera_id)
+        self.frame_count = 0
+
+    async def recv(self):
+        self.frame_count += 1
+        print(f"Sending frame {self.frame_count}")
+        ret, frame = self.cap.read()
+        if not ret:
+            print("Failed to read frame from camera")
+            return None
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        video_frame = VideoFrame.from_ndarray(frame, format="rgb24")
+        video_frame.pts = self.frame_count
+        video_frame.time_base = fractions.Fraction(1, 30)  # Use fractions for time_base
+        # Add timestamp to the frame
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Current time with milliseconds
+        cv2.putText(frame, timestamp, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        video_frame = VideoFrame.from_ndarray(frame, format="rgb24")
+        video_frame.pts = self.frame_count
+        video_frame.time_base = fractions.Fraction(1, 30)  # Use fractions for time_base
+        return video_frame
+
+async def setup_webrtc_and_run(ip_address, port, camera_id):
+    signaling = TcpSocketSignaling(ip_address, port)
+    pc = RTCPeerConnection()
+    video_sender = CustomVideoStreamTrack(camera_id)
+    pc.addTrack(video_sender)
+
+    try:
+        await signaling.connect()
+
+        @pc.on("datachannel")
+        def on_datachannel(channel):
+            print(f"Data channel established: {channel.label}")
+
+        @pc.on("connectionstatechange")
+        async def on_connectionstatechange():
+            print(f"Connection state is {pc.connectionState}")
+            if pc.connectionState == "connected":
+                print("WebRTC connection established successfully")
+
+        offer = await pc.createOffer()
+        await pc.setLocalDescription(offer)
+        await signaling.send(pc.localDescription)
+
+        while True:
+            obj = await signaling.receive()
+            if isinstance(obj, RTCSessionDescription):
+                await pc.setRemoteDescription(obj)
+                print("Remote description set")
+            elif obj is None:
+                print("Signaling ended")
+                break
+        print("Closing connection")
+    finally:
+        await pc.close()
+
+async def main():
+    ip_address = "0.0.0.0"  
+    port = 9999
+    camera_id = 0  # Change this to the appropriate camera ID
+    await setup_webrtc_and_run(ip_address, port, camera_id)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+El código del cliente que se conecta al servidor para recibir el video stream es este:
+```
+import asyncio
+import cv2
+import numpy as np
+from aiortc import RTCPeerConnection, RTCSessionDescription, MediaStreamTrack
+from aiortc.contrib.signaling import TcpSocketSignaling
+from av import VideoFrame
+from datetime import datetime, timedelta
+
+class VideoReceiver:
+    def __init__(self):
+        self.track = None
+
+    async def handle_track(self, track):
+        print("Inside handle track")
+        self.track = track
+        frame_count = 0
+        while True:
+            try:
+                print("Waiting for frame...")
+                frame = await asyncio.wait_for(track.recv(), timeout=5.0)
+                frame_count += 1
+                print(f"Received frame {frame_count}")
+                
+                if isinstance(frame, VideoFrame):
+                    print(f"Frame type: VideoFrame, pts: {frame.pts}, time_base: {frame.time_base}")
+                    frame = frame.to_ndarray(format="bgr24")
+                elif isinstance(frame, np.ndarray):
+                    print(f"Frame type: numpy array")
+                else:
+                    print(f"Unexpected frame type: {type(frame)}")
+                    continue
+              
+                 # Add timestamp to the frame
+                current_time = datetime.now()
+                new_time = current_time - timedelta( seconds=55)
+                timestamp = new_time.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+                cv2.putText(frame, timestamp, (10, frame.shape[0] - 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+                cv2.imwrite(f"imgs/received_frame_{frame_count}.jpg", frame)
+                print(f"Saved frame {frame_count} to file")
+                cv2.imshow("Frame", frame)
+    
+                # Exit on 'q' key press
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            except asyncio.TimeoutError:
+                print("Timeout waiting for frame, continuing...")
+            except Exception as e:
+                print(f"Error in handle_track: {str(e)}")
+                if "Connection" in str(e):
+                    break
+        print("Exiting handle_track")
+async def run(pc, signaling):
+    await signaling.connect()
+
+    @pc.on("track")
+    def on_track(track):
+        if isinstance(track, MediaStreamTrack):
+            print(f"Receiving {track.kind} track")
+            asyncio.ensure_future(video_receiver.handle_track(track))
+
+    @pc.on("datachannel")
+    def on_datachannel(channel):
+        print(f"Data channel established: {channel.label}")
+
+    @pc.on("connectionstatechange")
+    async def on_connectionstatechange():
+        print(f"Connection state is {pc.connectionState}")
+        if pc.connectionState == "connected":
+            print("WebRTC connection established successfully")
+
+    print("Waiting for offer from sender...")
+    offer = await signaling.receive()
+    print("Offer received")
+    await pc.setRemoteDescription(offer)
+    print("Remote description set")
+
+    answer = await pc.createAnswer()
+    print("Answer created")
+    await pc.setLocalDescription(answer)
+    print("Local description set")
+
+    await signaling.send(pc.localDescription)
+    print("Answer sent to sender")
+
+    print("Waiting for connection to be established...")
+    while pc.connectionState != "connected":
+        await asyncio.sleep(0.1)
+
+    print("Connection established, waiting for frames...")
+    await asyncio.sleep(100)  # Wait for 35 seconds to receive frames
+
+    print("Closing connection")
+
+async def main():
+    signaling = TcpSocketSignaling("xxx.xxx.xxx.xxx", 9999) # IP and port of server
+    pc = RTCPeerConnection()
+    
+    global video_receiver
+    video_receiver = VideoReceiver()
+
+    try:
+        await run(pc, signaling)
+    except Exception as e:
+        print(f"Error in main: {str(e)}")
+    finally:
+        print("Closing peer connection")
+        await pc.close()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+Estos códigos requieren la instalación de la librería aiortc.    
+ 
 ## 13. Instalación del módulo de cámara 3 de la RPi
 La calidad de la imagen puede mejorarse si se sustituye la webcam por un módulo de cámara específico para la RPi. En este apartado vamos a ver como conectar el modulo de cámara, versión 3. En el apartado siguiente veremos lo mismo, pero para la versión 2.   
  
