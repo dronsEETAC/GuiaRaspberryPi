@@ -719,7 +719,8 @@ pixels[2] = (0,0,0)
 pixels = neopixel.NeoPixel (board.D18,5) 
 button = Button (2) 
 print ("Press button") 
-button.when_pressed = lights pause()
+button.when_pressed = lights
+pause()
 ```
 La ejecución de estos programas requiere la instalación de las librerías siguientes:   
 ```
