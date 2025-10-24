@@ -63,7 +63,7 @@ ping google.com
 ```
 La segunda interfaz (Ralink RT5370) corresponde al adaptador Wifi que hemos conectado al puerto USB. Este modelo de adaptador (que se muestra en la figura (c) tiene la ventaja de que el driver necesario ya está incluido en el sistema operativo, de manera que solo es necesario conectar el adaptador para que esté operativo. En el caso de otros modelos de adaptador puede ser necesario instalar los drivers. En el anexo se describen algunos casos.   
  
-Las figuras (d), (e) y (f) muestran cómo configurar el punto de acceso (hotspot), al cual le hemos puesto el nombre MiHotSpot. Este será el nombre de la Wifi que será visible por cualquier dispositivo externo que quiera conectarse a la RPi.    
+Las figuras (d), (e) y (f) muestran cómo configurar el punto de acceso (hotspot), al cual le hemos puesto el nombre MiHotSpot. Este será el nombre de la Wifi que será visible por cualquier dispositivo externo que quiera conectarse a la RPi. Es importante tener presente que la contraseña que se establezca para el Hot Spot debe tener al menos 8 caracteres.       
  
 Finalmente, es necesario indicarle al sistema operativo que al iniciar la RPi active automáticamente el hotspot. Las figuras (g), (h) y (i) muestran cómo hacerlo.   
  
@@ -679,10 +679,9 @@ Los pines son: GND, DIN (señal de control), 5VDC y nuevamente GND. Estos pones 
  
 Para controlar los LEDs y el botón será necesario conectar los pines indicados a los pines apropiados de la RPi. Por ejemplo, el pin 5VDC puede conectarse al pin 2 de la RPi y el pin DIN puede conectarse a cualquiera de los pines de propósito general, como por ejemplo el 12, que se corresponde con GPIO18). La figura anterior muestra precisamente estas dos conexiones (cables rojo y amarillo). De la misma forma se conectan los pines GND. El pin DOUT también puede conectarse a cualquiera de los de propósito general, como por ejemplo el pin 03 (GPIO2).    
  
-Para poder controlar los LEDs y el botón por programa es necesario instalar la librería gpiozero:   
+Para poder controlar los LEDs y el botón por programa es necesario instalar la librería gpiozero en el entorno virtual:   
 ```
-sudo apt update 
-sudo apt install python3-gpiozero
+pip install gpiozero
 ```
 El siguiente programa muestra como usar el botón:  
 ```
@@ -704,32 +703,31 @@ import neopixel
 import time 
 def lights(): 
       print ("Button pressed") 
-#red 
-pixels[0] =(255,0,0) 
-time.sleep(2) 
-pixels[0] = (0,0,0) 
-#green 
-pixels[1] = (0,255,0) 
-time.sleep (2) 
-pixels[1] = (0,0,0) 
-#blue 
-pixels[2] = (0, 0, 255) 
-time.sleep (2) 
-pixels[2] = (0,0,0) 
+      #red 
+      pixels[0] =(255,0,0) 
+      time.sleep(2) 
+      pixels[0] = (0,0,0) 
+      #green 
+      pixels[1] = (0,255,0) 
+      time.sleep (2) 
+      pixels[1] = (0,0,0) 
+      #blue 
+      pixels[2] = (0, 0, 255) 
+      time.sleep (2) 
+      pixels[2] = (0,0,0) 
 pixels = neopixel.NeoPixel (board.D18,5) 
 button = Button (2) 
 print ("Press button") 
 button.when_pressed = lights
 pause()
 ```
-La ejecución de estos programas requiere la instalación de las librerías siguientes:   
+La ejecución de estos programas requiere la instalación de las librerías siguientes, también en el entorno virtual:   
 ```
-sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel 
-sudo python3 -m pip install --force-reinstall adafruit-blinka
+pip install adafruit-blinka adafruit-circuitpython-neopixel rpi_ws281x
 ```
 Ademas, los programas deben ejecutarse con permiso de administrador:   
 ```
-sudo python3 ejemplo.py
+sudo ~/venv/bin/python3 ejemplo.py
 ```
 Mas información sobre la librería gpiozero puede encontrarse aqui:  
 https://gpiozero.readthedocs.io/en/stable/index.html
