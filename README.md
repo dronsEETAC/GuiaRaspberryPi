@@ -676,13 +676,32 @@ https://gpiozero.readthedocs.io/en/stable/index.html
 ## 17. Integración de la RPi en la plataforma
 
 
+## 18. Gestion de las conexiones de red   
+Ya hemos visto como configurar la RPi para que se conecte a una wifi y poder tener así acceso a internet. Pero como es natural, una vez instalada la RPi en el dron es muy posible que en el sitio en el que vaya a operar el dron (por ejemplo, el DroneLab) no haya acceso a la wifi que se configuró en ese momento. Si la aplicación que se va a poner en marcha requiere de conexión a internet será necesario hacer que la RPi se conecte a la wifi que esté disponible en ese sitio. Veamos algunos comandos que pueden ayudarnos en esa tarea.    
 
+El siguiente comando nos permite ver cómo tenemos configuradas las dos interfaces de red:   
+```
+ nmcli dev status
+```
+La respuesta del sistema puede ser algo así:  
+```
+DEVICE         TYPE      STATE                   CONNECTION
+wlan1          wifi      conectado               MiHotSpot
+wlan0          wifi      conectado               AndroidAP984B 1
+lo             loopback  connected (externally)  lo
+p2p-dev-wlan0  wifi-p2p  desconectado            --
+eth0           ethernet  no disponible           --
+```
+Lo que vemos es que wlan1 tiene configurado el punto de acceso (MiHotSpot) y wlan0 se conecta a la wifi AndroidAP984B, a través de la cual podemos acceder a internet.   
 
-
-
-
-
-
+El siguiente comando nos permite ver las wifis disponibles en ese momento, de manera que podamos elegir una de ellas para conectarnos:   
+```
+nmcli dev wifi list
+```
+Ahora podemos conectarnos a la wifi elegida usando su SSID y su password:    
+```
+nmcli dev wifi connect "SSID de la wifi elegida" password "el de esa wifi" ifname wlan0
+```
 
 # Anexo: Otros adaptadores Wifi
 Hay otros muchos modelos de adaptadores Wifi, cuyo uso puede requerir la instalación en la RPi de los drivers correspondientes. Veamos aquí dos casos concretos, con las instrucciones necesarias para instalar sus drivers.   
