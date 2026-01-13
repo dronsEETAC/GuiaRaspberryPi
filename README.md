@@ -67,7 +67,7 @@ Las figuras (d), (e) y (f) muestran cómo configurar el punto de acceso (hotspot
  
 Finalmente, es necesario indicarle al sistema operativo que al iniciar la RPi active automáticamente el hotspot. Las figuras (g), (h) y (i) muestran cómo hacerlo.   
  
-La figura (6) muestra las IP de cada una de las conexiones, una vez configuradas. Particularmente importante es la IP del hotspot (10.42.0.1), porque es la que debe usar el dispositivo externo que quiera conectarse a la RPi.   
+La figura (j) muestra las IP de cada una de las conexiones, una vez configuradas. Particularmente importante es la IP del hotspot (10.42.0.1), porque es la que debe usar el dispositivo externo que quiera conectarse a la RPi.   
 
 ## 6. Conexión a la RPi desde un dispositivo externo vía SSH 
 Antes de realizar una conexión con la RPi, debemos indicar al sistema operativo que permita las conexiones SSH. Para eso, en un terminal de la RPi debe ejecutarse el comando siguiente:   
