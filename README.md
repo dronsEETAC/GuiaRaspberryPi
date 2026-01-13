@@ -3,7 +3,7 @@
 ## 1. Introducción
 Con frecuencia un dron lleva computación a bordo, que le permite tomar decisiones durante el vuelo como, por ejemplo, cambiar el plan de vuelo previsto si detecta algo a través de los sensores del dron. Naturalmente, una cámara es uno de esos sensores más habituales.   
   
-Una opción ideal para esto es la Raspberry Pi (RPi), a la que se le puede instalar una cámara y además puede conectarse a internet. En esta guía vamos a describir paso a paso cómo configurar la RPi de manera que podamos conectarnos con ella desde la estación de tierra a través de internet, cómo conectarle una cámara o como conectarla con el autopiloto para controlar el dron desde un programa en Python.   
+Una opción ideal para esto es la Raspberry Pi (RPi), a la que se le puede instalar una cámara y además puede conectarse a internet. En esta guía vamos a describir paso a paso cómo configurar la RPi de manera que podamos conectarnos con ella desde la estación de tierra a través de internet, cómo conectarle una cámara o cómo conectarla con el autopiloto para controlar el dron desde un programa en Python.   
  
 El kit RPi que vamos a utilizar es el que se muestra en la figura. Consiste en una RPi, un módulo de cámara, un cable de alimentación, cable para conectar la RPi a un monitor por HDMI, un adaptador WIFI y una tarjeta microSD.   
 
