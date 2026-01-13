@@ -89,7 +89,7 @@ Una vez hemos entrado en la RPi (usando las claves de usuario configuradas en su
 ```
 sudo apt update 
 sudo apt upgrade –y 
-sudo apt install libgl1-mesa-glx 
+sudo apt install libgl1
 sudo apt install python3-pip python3-dev
 ```
 Para comprobar que la instalación se ha realizado correctamente, prepararemos un fichero hello.py con la sentencia:	
