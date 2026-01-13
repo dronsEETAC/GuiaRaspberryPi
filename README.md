@@ -28,7 +28,10 @@ En primer lugar debemos descargar Raspberry Pi Imager. Al ejecutarlo, podremos e
 <img width="521" height="221" alt="image" src="https://github.com/user-attachments/assets/55e1d4c3-d4a7-415c-93a3-350acaacd609" />
 
 
-La aplicación preguntará si queremos hacer alguna configuración. Le diremos que no. Todas las configuraciones necesarias las haremos en los pasos siguientes. La figura siguiente contiene imágenes que pueden ayudar en este proceso. 
+La aplicación preguntará si queremos hacer alguna configuración. Le diremos que no. Todas las configuraciones necesarias las haremos en los pasos siguientes. La figura siguiente contiene imágenes que pueden ayudar en este proceso.   
+
+<img width="1631" height="274" alt="image" src="https://github.com/user-attachments/assets/e2c4b130-13d4-44a3-8fdd-48761e1e5f7c" />
+
 
 <img width="1076" height="241" alt="image" src="https://github.com/user-attachments/assets/659e59d6-0c74-423d-87a9-3b70a30ca1fb" />
 
