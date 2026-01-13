@@ -346,7 +346,7 @@ En todo caso, veamos ahora una tecnología alternativa para implementar la comun
 ## 12. Transmisión del stream de video por WebSockets
 Un websocket es un canal de comunicación entre el emisor y el receptor a través de internet pero que no requiere de ningún otro intermediario, como es el caso del bróker necesario en el caso de MQTT. Esto hace que para el caso de la transmisión de stream de video sea una opción mejor.  
  
-El protocolo de websocket se apoya en el protocolo HTTP sobre el que funciona la web. Por eso, en la comunicación debe hacer un servidor y un cliente que se conecta al servidor. En nuestro caso, el servidor será el emisor que se ejecuta en la RPi (que sirve el stream de video a quien se conecte). El cliente será el receptor, que se ejecuta en el portátil.   
+El protocolo de websocket se apoya en el protocolo HTTP sobre el que funciona la web. Por eso, en la comunicación debe haber un servidor y un cliente que se conecta al servidor. En nuestro caso, el servidor será el emisor que se ejecuta en la RPi (que sirve el stream de video a quien se conecte). El cliente será el receptor, que se ejecuta en el portátil.   
  
 Veamos el código del servidor.
 ```
