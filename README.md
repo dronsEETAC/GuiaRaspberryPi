@@ -33,12 +33,6 @@ La aplicación preguntará si queremos hacer alguna configuración. Le diremos q
 <img width="1357" height="897" alt="image" src="https://github.com/user-attachments/assets/684eddb7-94c6-4592-a690-528f9554dea0" />
 
 
-<img width="1631" height="274" alt="image" src="https://github.com/user-attachments/assets/e2c4b130-13d4-44a3-8fdd-48761e1e5f7c" />
-
-
-<img width="1076" height="241" alt="image" src="https://github.com/user-attachments/assets/659e59d6-0c74-423d-87a9-3b70a30ca1fb" />
-
-
 ## 3. Conexión de los dispositivos necesarios para realizar la configuración
 El siguiente paso es insertar la microSD en la que hemos instalado el sistema operativo en la ranura correspondiente de la RPi. Además, debemos conectar la RPi a:    
  
