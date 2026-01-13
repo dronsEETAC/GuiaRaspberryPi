@@ -195,11 +195,11 @@ Para probar el correcto funcionamiento de la conexión podemos usar el programa 
 ## 10. Captura del stream de video de una webcam
 En esta y las siguientes secciones aprenderemos a capturar el stream de video de una cámara conectada a la RPi y enviar ese stream de video a una estación de tierra.   
  
-Empezaremos instalando la librería OpenCV que nos ayudará a capturar y procesar las imágenes de la cámara. La instalación debe hacerse dentro del entorno virtual que hemos creado (tal y como se mostró en el vídeo del apartado 0).   
+Empezaremos instalando la librería OpenCV que nos ayudará a capturar y procesar las imágenes de la cámara. La instalación debe hacerse dentro del entorno virtual que hemos creado (tal y como se mostró en el vídeo del apartado 8).   
 ```
 pip install opencv-python
 ```
-Ahora Podemos conectar una WebCam a cualquiera de los puertos USB de la RPi. Podemos usar el código siguiente para capturar y mostrar en pantalla el stream de video de la WebCam.   
+Ahora podemos conectar una WebCam a cualquiera de los puertos USB de la RPi. Podemos usar el código siguiente para capturar y mostrar en pantalla el stream de video de la WebCam.   
 ```
 import numpy as np
 import cv2 as cv # libreria opencv
@@ -280,7 +280,7 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-El código emisor usa la librería opencv para capturar (en esta ocasión cada 200 milisegundos) un frame. El frame no lo pasa a escala de grises pero si que ajusta el nivel de calidad a 40 para que el volumen de información a enviar no sea excesivamente grande. El nivel de calidad puede subirse hasta 100, con lo que la imagen que se recibe será de más calidad pero la fluidez del stream será menos por saturación de la comunicación. La fluidez de la comunicación también se puede controlar haciendo que el código envíe menos frames por segundo, ajustando el valor del parámetro de time.sleep (0.2).   
+El código emisor usa la librería opencv para capturar (en esta ocasión cada 200 milisegundos) un frame. El frame no lo pasa a escala de grises pero si que ajusta el nivel de calidad a 40 para que el volumen de información a enviar no sea excesivamente grande. El nivel de calidad puede subirse hasta 100, con lo que la imagen que se recibe será de más calidad pero la fluidez del stream será menor por saturación de la comunicación. La fluidez de la comunicación también se puede controlar haciendo que el código envíe menos frames por segundo, ajustando el valor del parámetro de time.sleep (0.2).   
  
 Lo importante es que cuando tenemos un frame preparado se publica en un bróker con el topic "raspi/camera/stream". Este es el principio básico de la comunicación usando el protocolo MQTT. El emisor publica información asignándole un topic (un string cualquiera). Esa información la recibe el bróker (que es un servidor MQTT). El bróker suministrará esa información a cualquier programa (en nuestro caso, el receptor) que se haya suscrito al topic. Naturalmente, tanto el emisor como el receptor deben estar conectados a internet y deben usar el mismo bróker para las publicaciones y suscripciones. En el ejemplo, se usa el bróker público y gratuito "broker.hivemq.com". Hay otros muchos bróker públicos y gratuitos, e incluso puede hacerse la instalación de un bróker en algún servidor propio.    
  
@@ -469,7 +469,6 @@ async def handle_client(websocket):
     print("Se ha conectado el receptor")
     # preparo las estructuras para la conexión WebRTC y envio la oferta
     pc = RTCPeerConnection()
-    video_sender = CustomVideoStreamTrack(0)
     pc.addTrack(video_sender)
     offer = await pc.createOffer()
     await pc.setLocalDescription(offer)
@@ -498,7 +497,7 @@ async def main():
     global video_sender
     HOST = '0.0.0.0'
     PORT = 9999
-    video_sender = CustomVideoStreamTrack(1)
+    video_sender = CustomVideoStreamTrack(0)
     print(f"🖥️ Esperando conexión en ws://{HOST}:{PORT}")
     async with websockets.serve(handle_client, HOST, PORT):
         await asyncio.Future()  # Mantener servidor activo
@@ -554,9 +553,11 @@ async def main (websocket_url: str):
                 print("Respuesta enviada")
 
 if __name__ == "__main__":
-    asyncio.run(main("ws://127.0.0.1:9999"))
+    asyncio.run(main("ws://<IP_DE_RASPBERRY>:9999"))
 ```
 Estos códigos requieren la instalación de la librería aiortc.    
+
+En WebRTC el emisor y el receptor se comunican inicialmente a través de un websocket. Cuando el cliente (el receptor en este caso) se conecta al servidor entonces éste le envía por el websocket una oferta. El cliente acepta la oferta y a partir de ese momento ambos quedan vinculados a través en un enlace UDP a través del cual se transmite el stream de video, para lo cual ya no se usa el websocket.    
  
 ## 14. Instalación del módulo de cámara 3 de la RPi
 La calidad de la imagen puede mejorarse si se sustituye la webcam por un módulo de cámara específico para la RPi. En este apartado vamos a ver como conectar el modulo de cámara, versión 3. En el apartado siguiente veremos lo mismo, pero para la versión 2.   
