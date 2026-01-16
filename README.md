@@ -7,7 +7,14 @@ Una opción ideal para esto es la Raspberry Pi (RPi), a la que se le puede insta
  
 El kit RPi que vamos a utilizar es el que se muestra en la figura. Consiste en una RPi, un módulo de cámara, un cable de alimentación, cable para conectar la RPi a un monitor por HDMI, un adaptador WIFI y una tarjeta microSD.   
 
- <img width="504" height="378" alt="image" src="https://github.com/user-attachments/assets/db071ec1-1607-4f89-8429-8a82ddc66d5b" />
+ <img width="504" height="378" alt="image" src="https://github.com/user-attachments/assets/db071ec1-1607-4f89-8429-8a82ddc66d5b" />    
+
+A pesar de que las secciones 14 y 15 de esta guía describe el proceso de instalación y configuración del módulo de cámara específico para la RPi, lo cierto es que ese proceso es muy propenso a fallos (errores de conexión física, cambios en la librerías que hay que instalar, etc.). De hecho, es fácil que aunque se siga el proceso descrito en esas secciones la cámara no llegue a funcionar.   
+
+Por otra parte, el proceso para instalar una webcam normal es trivial y no suele dar ningún problema. Es por tanto el sistema sugerido para dotar a la RPi de una cámara. Naturalmente, lo ideal es que sea una cámara pequeña y de poco peso. La que se muestra en la imagen es ideal por su tamaño y peso. Tiene un cable retráctil que facilita su instalación en el dron. Además es muy barata (menos de 10 euros). Puede encontrarse buscando en google "camara web usb 5mpx tiendatec".    
+
+
+<img width="296" height="216" alt="image" src="https://github.com/user-attachments/assets/41bfab7c-87ef-46f9-9e12-b7ef45a53839" />
 
 
 En algunos de los pasos de esta guía se usa una RPi contenida en una caja roja como la mostrada en la figura. Esta caja contiene los conectores para alimentar la RPi y para conectarla al autopiloto. También contiene un botón y unos leds, que aprenderemos a controlar en la sección 15 de esta guía.    
