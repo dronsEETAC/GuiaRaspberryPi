@@ -682,8 +682,26 @@ sudo ~/venv/bin/python3 ejemplo.py
 Mas información sobre la librería gpiozero puede encontrarse aqui:  
 https://gpiozero.readthedocs.io/en/stable/index.html
 
-## 17. Integración de la RPi en la plataforma
+## 17. Integración de la RPi en la plataforma    
 
+Integrar la RPi en la plataforma implica básicamente:
+1. Suministarle alimentación
+2. Ubicar la cámara en la plataforma
+3. Ubicar la caja con la RPi
+
+### 17.1 Alimentación de la RPi    
+La RPi ser alimnenta mediante un cable que sale de la placa de distribución de energía del dron, que proporciona 5V. En la caja que contiene la RPi hay un conector preparado para recibir ese cable. El conector tiene 5 pines. El cable suministra los 5V al pin número 2 y GND al pin número 3, tal y como muestra la figura. Estos dos pines deben conectarse internamente a cualquiera de los pones de la RPi marcados como +5V y como GND (cables rojo y negro en la figura).   
+
+### 17.2 Ubicación de la cámara
+La forma de ubicar la cámara dependerá del tipo de cámara que se use. En este caso vamos a suponer que usamos la webCam retráctil que se recomendó en la introducción. Por una parte basta conectar la cámara a cualquiera de los puertos USB de la RPi. La cámara tiene una pestaña que permite fijar la cámara fácilmente a la plataforma. La figura muestra dos opciones de orientación, con apoyo de la plancha inferior de la plataforma.    
+
+<img width="666" height="432" alt="image" src="https://github.com/user-attachments/assets/3af7c482-31c9-46bf-ad99-767a855fc670" />
+
+### 17.3 Ubicación de la caja con la RPi    
+Para ubicar la caja con la RPi es conveniente utilizar una tercera plancha en la parte superior fijada a la inferior mediante cuatro columnas metálicas, tal y como muestra la figura. Con la ayuda de velcro, se fija la caja en la plancha. La figura muestra también la conexión del cable de alimentación y la webCam (no se muestra la conexión con el autopiloto, que ya se ha descrito en el apartado 9.   
+ 
+<img width="670" height="503" alt="image" src="https://github.com/user-attachments/assets/f86f09b5-bd98-402f-bca2-40055d9ee3c1" />
+   
 
 ## 18. Gestion de las conexiones de red   
 Ya hemos visto como configurar la RPi para que se conecte a una wifi y poder tener así acceso a internet. Pero como es natural, una vez instalada la RPi en el dron es muy posible que en el sitio en el que vaya a operar el dron (por ejemplo, el DroneLab) no haya acceso a la wifi que se configuró en ese momento. Si la aplicación que se va a poner en marcha requiere de conexión a internet será necesario hacer que la RPi se conecte a la wifi que esté disponible en ese sitio. Veamos algunos comandos que pueden ayudarnos en esa tarea.    
