@@ -11,7 +11,7 @@ El kit RPi que vamos a utilizar es el que se muestra en la figura. Consiste en u
 
 A pesar de que las secciones 14 y 15 de esta guía describe el proceso de instalación y configuración del módulo de cámara específico para la RPi, lo cierto es que ese proceso es muy propenso a fallos (errores de conexión física, cambios en la librerías que hay que instalar, etc.). De hecho, es fácil que aunque se siga el proceso descrito en esas secciones la cámara no llegue a funcionar.   
 
-Por otra parte, el proceso para instalar una webcam normal es trivial y no suele dar ningún problema. Es por tanto el sistema sugerido para dotar a la RPi de una cámara. Naturalmente, lo ideal es que sea una cámara pequeña y de poco peso. La que se muestra en la imagen es ideal por su tamaño y peso. Tiene un cable retráctil que facilita su instalación en el dron. Además es muy barata (menos de 10 euros). Puede encontrarse buscando en google "camara web usb 5mpx tiendatec".    
+Por otra parte, el proceso para instalar una webcam normal es trivial y no suele dar ningún problema. Es por tanto el sistema sugerido para dotar a la RPi de una cámara. Naturalmente, lo ideal es que sea una cámara pequeña y de poco peso. La que se muestra en la imagen es ideal por su tamaño y peso. Tiene un cable retráctil que facilita su instalación en el dron. Además es muy barata (menos de 10 euros). Naturalmente, se trata de una cámara con menos prestaciones y menos calidad que los módulos de cámara específicos para la RPi, aunque la calidad es suficiente para la mayoría de las aplicaciones. Puede encontrarse buscando en google "camara web usb 5mpx tiendatec".    
 
 
 <img width="296" height="216" alt="image" src="https://github.com/user-attachments/assets/41bfab7c-87ef-46f9-9e12-b7ef45a53839" />
@@ -206,7 +206,7 @@ Empezaremos instalando la librería OpenCV que nos ayudará a capturar y procesa
 ```
 pip install opencv-python
 ```
-Ahora podemos conectar una WebCam a cualquiera de los puertos USB de la RPi. Podemos usar el código siguiente para capturar y mostrar en pantalla el stream de video de la WebCam.   
+Ahora podemos conectar una WebCam a cualquiera de los puertos USB de la RPi (por ejemplo, la webcam que se ha recomendado en la introducción de esta guía). Podemos usar el código siguiente para capturar y mostrar en pantalla el stream de video de la WebCam.   
 ```
 import numpy as np
 import cv2 as cv # libreria opencv
@@ -567,6 +567,8 @@ Estos códigos requieren la instalación de la librería aiortc.
 En WebRTC el emisor y el receptor se comunican inicialmente a través de un websocket. Cuando el cliente (el receptor en este caso) se conecta al servidor entonces éste le envía por el websocket una oferta. El cliente acepta la oferta y a partir de ese momento ambos quedan vinculados a través en un enlace UDP a través del cual se transmite el stream de video, para lo cual ya no se usa el websocket.    
  
 ## 14. Instalación del módulo de cámara 3 de la RPi
+Como se ha indicado en la introducción, los procedimientos descritos en esta sección y la siguiente son muy propensos a fallos. No podemos garantizar el éxito de la operación.  
+  
 La calidad de la imagen puede mejorarse si se sustituye la webcam por un módulo de cámara específico para la RPi. En este apartado vamos a ver como conectar el modulo de cámara, versión 3. En el apartado siguiente veremos lo mismo, pero para la versión 2.   
  
 El módulo de cámara para RPi (versión 3) muestra en la figura siguiente en la que se ve también cómo instalar esta cámara en la RPi. Es muy importante prestar atención a la correcta orientación de la cinta de conexión. Las letras que aparecen en esa cinta nos pueden ayudar a no cometer errores.
