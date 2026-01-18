@@ -692,6 +692,8 @@ Integrar la RPi en la plataforma implica básicamente:
 ### 17.1 Alimentación de la RPi    
 La RPi ser alimnenta mediante un cable que sale de la placa de distribución de energía del dron, que proporciona 5V. En la caja que contiene la RPi hay un conector preparado para recibir ese cable. El conector tiene 5 pines. El cable suministra los 5V al pin número 2 y GND al pin número 3, tal y como muestra la figura. Estos dos pines deben conectarse internamente a cualquiera de los pones de la RPi marcados como +5V y como GND (cables rojo y negro en la figura).   
 
+<img width="292" height="395" alt="image" src="https://github.com/user-attachments/assets/be87c570-dc9a-46ca-a103-e41f6d0b9bb7" />
+
 ### 17.2 Ubicación de la cámara
 La forma de ubicar la cámara dependerá del tipo de cámara que se use. En este caso vamos a suponer que usamos la webCam retráctil que se recomendó en la introducción. Por una parte basta conectar la cámara a cualquiera de los puertos USB de la RPi. La cámara tiene una pestaña que permite fijar la cámara fácilmente a la plataforma. La figura muestra dos opciones de orientación, con apoyo de la plancha inferior de la plataforma.    
 
