@@ -575,10 +575,6 @@ El módulo de cámara para RPi (versión 3) muestra en la figura siguiente en la
 
 <img width="775" height="302" alt="image" src="https://github.com/user-attachments/assets/bd71b74e-e11a-42d6-81a3-ac18b5d9685a" />
 
-Una vez instalada, podemos comprobar que funciona correctamente ejecutando el comando siguiente, que nos mostrará en la pantalla conectada a la RPi el stream de video durante unos segundos:    
-```
-libcamera-hello
-```
 Para poder utilizar esta cámara en un programa en Python tenemos que instalar la librería picamara2:
 ```
 sudo apt install –y python3-picamera2
