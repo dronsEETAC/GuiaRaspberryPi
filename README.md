@@ -579,7 +579,7 @@ Una vez instalada, podemos comprobar que funciona correctamente ejecutando el co
 ```
 libcamera-hello
 ```
-Para poder utilizar esta cámara en un programa en Python tenemos que instalar en el entorno virtual la librería picamara2:
+Para poder utilizar esta cámara en un programa en Python tenemos que instalar la librería picamara2:
 ```
 sudo apt install –y python3-picamera2
 ```
