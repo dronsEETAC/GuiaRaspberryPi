@@ -697,7 +697,7 @@ La forma de ubicar la cámara dependerá del tipo de cámara que se use. Conside
 
 En el caso de la cámara específica para la RPi usaremos la pieza que se muestra en la figura, que puede atornillarse a la plancha inferior. La pieza tiene a la derecha un contenedor (negro en la figura) para alojar la cámara. También tiene elementos que permiten instalar un altímetro laser y un optical flow, pero eso no se considera en esta guía básica.   
 
-![20260119_113651](https://github.com/user-attachments/assets/176d95c8-c4f2-4922-9d1f-ad048ceb758d)
+<img width="671" height="436" alt="image" src="https://github.com/user-attachments/assets/176d95c8-c4f2-4922-9d1f-ad048ceb758d" />
 
 La siguiente figura muestra imágenes que pueden ayudar en esta instalación. 
 
