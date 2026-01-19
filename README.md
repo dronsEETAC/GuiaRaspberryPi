@@ -691,15 +691,28 @@ La RPi ser alimnenta mediante un cable que sale de la placa de distribución de 
 <img width="292" height="395" alt="image" src="https://github.com/user-attachments/assets/be87c570-dc9a-46ca-a103-e41f6d0b9bb7" />
 
 ### 17.2 Ubicación de la cámara
-La forma de ubicar la cámara dependerá del tipo de cámara que se use. En este caso vamos a suponer que usamos la webCam retráctil que se recomendó en la introducción. Por una parte basta conectar la cámara a cualquiera de los puertos USB de la RPi. La cámara tiene una pestaña que permite fijar la cámara fácilmente a la plataforma. La figura muestra dos opciones de orientación, con apoyo de la plancha inferior de la plataforma.    
+La forma de ubicar la cámara dependerá del tipo de cámara que se use. Consideramos primero el caso de la webCam retráctil que se recomendó en la introducción. Basta conectar la cámara a cualquiera de los puertos USB de la RPi. La cámara tiene una pestaña que permite fijar la cámara fácilmente a la plataforma. La figura muestra dos opciones de orientación, con apoyo de la plancha inferior de la plataforma.    
 
-<img width="666" height="432" alt="image" src="https://github.com/user-attachments/assets/3af7c482-31c9-46bf-ad99-767a855fc670" />
+<img width="666" height="432" alt="image" src="https://github.com/user-attachments/assets/3af7c482-31c9-46bf-ad99-767a855fc670" />   
+
+En el caso de la cámara específica para la RPi usaremos la pieza que se muestra en la figura, que puede atornillarse a la plancha inferior. La pieza tiene a la derecha un contenedor (negro en la figura) para alojar la cámara. También tiene elementos que permiten instalar un altímetro laser y un optical flow, pero eso no se considera en esta guía básica.   
+
+![20260119_113651](https://github.com/user-attachments/assets/176d95c8-c4f2-4922-9d1f-ad048ceb758d)
+
+La siguiente figura muestra imágenes que pueden ayudar en esta instalación. 
+
+<img width="671" height="436" alt="image" src="https://github.com/user-attachments/assets/f2fd5ef9-4cb9-4eab-bf0e-341bfe63cf5c" />
+
 
 ### 17.3 Ubicación de la caja con la RPi    
 Para ubicar la caja con la RPi es conveniente utilizar una tercera plancha en la parte superior fijada a la inferior mediante cuatro columnas metálicas, tal y como muestra la figura. Con la ayuda de velcro, se fija la caja en la plancha. La figura muestra también la conexión del cable de alimentación y la webCam (no se muestra la conexión con el autopiloto, que ya se ha descrito en el apartado 9.   
  
 <img width="670" height="503" alt="image" src="https://github.com/user-attachments/assets/f86f09b5-bd98-402f-bca2-40055d9ee3c1" />
-   
+
+La siguiente imagen muestra cómo puede quedar ubicada la caja en el caso de que se haya instalado el módulo de cámara específico para la RPi. La figura muestra también, junto a la cámara, el optical flow (pieza roja) y el altímetro laser.    
+ 
+<img width="325" height="436" alt="image" src="https://github.com/user-attachments/assets/e04e9dbf-64de-4992-a4c2-8fce5f5f3e52" />
+
 
 ## 18. Gestion de las conexiones de red   
 Ya hemos visto como configurar la RPi para que se conecte a una wifi y poder tener así acceso a internet. Pero como es natural, una vez instalada la RPi en el dron es muy posible que en el sitio en el que vaya a operar el dron (por ejemplo, el DroneLab) no haya acceso a la wifi que se configuró en ese momento. Si la aplicación que se va a poner en marcha requiere de conexión a internet será necesario hacer que la RPi se conecte a la wifi que esté disponible en ese sitio. Veamos algunos comandos que pueden ayudarnos en esa tarea.    
